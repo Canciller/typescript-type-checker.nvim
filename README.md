@@ -14,3 +14,12 @@ Run `npx tsc --noEmit --pretty false` using `:Typecheck` command and show the re
   },
 }
 ```
+
+## Options
+
+```lua
+{
+  command = 'Typecheck',
+}
+```
+

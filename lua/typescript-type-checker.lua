@@ -1,5 +1,14 @@
+---@class Config
+---@field command string
+local config = {
+  command = "Typecheck",
+}
+
 ---@class TypescriptTypeChecker
 local M = {}
+
+---@type Config
+M.config = config
 
 M.run = function()
   local tsc_command = "npx tsc --noEmit --pretty false"
@@ -57,8 +66,11 @@ M.run = function()
   })
 end
 
-M.setup = function()
-  vim.api.nvim_create_user_command("Typecheck", function()
+---@param args Config?
+M.setup = function(args)
+  M.config = vim.tbl_deep_extend("force", M.config, args or {})
+
+  vim.api.nvim_create_user_command(M.config.command, function()
     M.run()
   end, {
     force = true,
