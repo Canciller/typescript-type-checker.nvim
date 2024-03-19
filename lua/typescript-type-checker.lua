@@ -40,7 +40,8 @@ M.run = function()
     for _, line in ipairs(data) do
       if line ~= "" then -- Ignore empty lines
         -- Match the filename, line number, column number, and the full message
-        local filename, lnum, col, full_message = line:match("([^%(%)]+)%((%d+),(%d+)%)%:%s*(.*)")
+        local pattern = "(.-)%((%d+),(%d+)%)%:%s*(.*)"
+        local filename, lnum, col, full_message = line:match(pattern)
 
         if filename and lnum and col and full_message then
           table.insert(qf_list, {
